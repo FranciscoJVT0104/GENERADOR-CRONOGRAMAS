@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Cronogramas Visuales</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- SheetJS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+</head>
+
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <h1>Generador de Cronogramas</h1>
+            <p>Sube tu Excel y tu imagen de fondo para colocar los iconos organizados exactamente en el calendario.</p>
+        </header>
+
+        <main class="app-main">
+            <aside class="controls-panel">
+                <section class="control-group">
+                    <h2>1. Archivos</h2>
+                    <a href="PLANTILLA/PLANTILLA PARA GENERAR CRONOGRAMA.xlsx" download class="file-btn" style="text-decoration: none; margin-bottom: 1.5rem; color: var(--text-main);">
+                        <span class="icon" style="margin-right: 8px;">📥</span> Descargar Plantilla Excel
+                    </a>
+                    <div class="file-upload">
+                        <label for="excelUpload" class="file-btn">
+                            <span class="icon">📊</span> Subir Excel
+                        </label>
+                        <input type="file" id="excelUpload" accept=".xlsx, .xls">
+                        <span id="excelFileName" class="file-name">Ningún archivo</span>
+                    </div>
+
+                    <div class="file-upload">
+                        <label for="bgUpload" class="file-btn">
+                            <span class="icon">🖼️</span> Subir Fondo
+                        </label>
+                        <input type="file" id="bgUpload" accept="image/png, image/jpeg">
+                        <span id="bgFileName" class="file-name">Ningún archivo</span>
+                    </div>
+                </section>
+
+                <section class="control-group">
+                    <h2>2. Textos y Personalización</h2>
+                    <p class="help-text">Ajusta posiciones (X, Y), tamaño y ancho máximo (W) de cada dato.</p>
+
+                    <div class="setting-row">
+                        <label>Forzar Carrera:</label>
+                        <select id="carreraGlobal" class="short-select">
+                            <option value="EXCEL">Del Excel</option>
+                            <option value="ENFERMERIA">ENFERMERIA</option>
+                            <option value="FARMACIA">FARMACIA</option>
+                            <option value="FISIOTERAPIA">FISIOTERAPIA</option>
+                        </select>
+                    </div>
+
+                    <div class="settings-grid">
+                        <div class="field-header" style="text-align:left;">Campo</div>
+                        <div class="field-header">X</div>
+                        <div class="field-header">Y</div>
+                        <div class="field-header">Size</div>
+                        <div class="field-header">Max(W)</div>
+                        <div class="field-header">Color</div>
+                        <div class="field-header">Borde</div>
+
+                        <label>Carrera</label><input type="number" id="carreraX" title="Pos X" value="696"><input type="number" id="carreraY" title="Pos Y" value="47"><input type="number" id="carreraSize" title="Tamaño" value="30"><input type="number" id="carreraW" title="Ancho Max" value="241"><input type="color" id="carreraC" title="Color" value="#ffffff"><div style="display:flex;gap:2px;"><input type="number" id="carreraStrokeW" value="0" style="width:36px;" title="Grosor Borde"><input type="color" id="carreraStrokeC" value="#000000"></div>
+                        <label>Curso</label><input type="number" id="cursoX" title="Pos X" value="156"><input type="number" id="cursoY" title="Pos Y" value="110"><input type="number" id="cursoSize" title="Tamaño" value="26"><input type="number" id="cursoW" title="Ancho Max" value="760"><input type="color" id="cursoC" title="Color" value="#ffffff"><div style="display:flex;gap:2px;"><input type="number" id="cursoStrokeW" value="0" style="width:36px;" title="Grosor Borde"><input type="color" id="cursoStrokeC" value="#000000"></div>
+                        <label>Docente</label><input type="number" id="docenteX" title="Pos X" value="196"><input type="number" id="docenteY" title="Pos Y" value="191"><input type="number" id="docenteSize" title="Tamaño" value="22"><input type="number" id="docenteW" title="Ancho Max" value="500"><input type="color" id="docenteC" title="Color" value="#000000"><div style="display:flex;gap:2px;"><input type="number" id="docenteStrokeW" value="0" style="width:36px;" title="Grosor Borde"><input type="color" id="docenteStrokeC" value="#ffffff"></div>
+                        <label>Aula</label><input type="number" id="aulaX" title="Pos X" value="830"><input type="number" id="aulaY" title="Pos Y" value="199"><input type="number" id="aulaSize" title="Tamaño" value="32"><input type="number" id="aulaW" title="Ancho Max" value="72"><input type="color" id="aulaC" title="Color" value="#ffffff"><div style="display:flex;gap:2px;"><input type="number" id="aulaStrokeW" value="0" style="width:36px;" title="Grosor Borde"><input type="color" id="aulaStrokeC" value="#000000"></div>
+                        <label>Zoom Virt.</label><input type="number" id="zoomVX" title="Pos X" value="32"><input type="number" id="zoomVY" title="Pos Y" value="342"><input type="number" id="zoomVSize" title="Tamaño" value="28"><input type="number" id="zoomVW" title="Ancho Max" value="240"><input type="color" id="zoomVC" title="Color" value="#000000"><div style="display:flex;gap:2px;"><input type="number" id="zoomVStrokeW" value="0" style="width:36px;" title="Grosor Borde"><input type="color" id="zoomVStrokeC" value="#ffffff"></div>
+                        <label>Prác. Pres.</label><input type="number" id="pracPX" title="Pos X" value="28"><input type="number" id="pracPY" title="Pos Y" value="481"><input type="number" id="pracPSize" title="Tamaño" value="25"><input type="number" id="pracPW" title="Ancho Max" value="250"><input type="color" id="pracPC" title="Color" value="#000000"><div style="display:flex;gap:2px;"><input type="number" id="pracPStrokeW" value="0" style="width:36px;" title="Grosor Borde"><input type="color" id="pracPStrokeC" value="#ffffff"></div>
+                        <label>Sede 1</label><input type="number" id="sede1X" title="Pos X" value="529"><input type="number" id="sede1Y" title="Pos Y" value="766"><input type="number" id="sede1Size" title="Tamaño" value="21"><input type="number" id="sede1W" title="Ancho Max" value="333"><input type="color" id="sede1C" title="Color" value="#000000"><div style="display:flex;gap:2px;"><input type="number" id="sede1StrokeW" value="0" style="width:36px;" title="Grosor Borde"><input type="color" id="sede1StrokeC" value="#ffffff"></div>
+                        <label>Sede 2</label><input type="number" id="sede2X" title="Pos X" value="181"><input type="number" id="sede2Y" title="Pos Y" value="701"><input type="number" id="sede2Size" title="Tamaño" value="20"><input type="number" id="sede2W" title="Ancho Max" value="750"><input type="color" id="sede2C" title="Color" value="#000000"><div style="display:flex;gap:2px;"><input type="number" id="sede2StrokeW" value="0" style="width:36px;" title="Grosor Borde"><input type="color" id="sede2StrokeC" value="#ffffff"></div>
+                        <label>Dirección</label><input type="number" id="dir1X" title="Pos X" value="83"><input type="number" id="dir1Y" title="Pos Y" value="811"><input type="number" id="dir1Size" title="Tamaño" value="22"><input type="number" id="dir1W" title="Ancho Max" value="858"><input type="color" id="dir1C" title="Color" value="#000000"><div style="display:flex;gap:2px;"><input type="number" id="dir1StrokeW" value="0" style="width:36px;" title="Grosor Borde"><input type="color" id="dir1StrokeC" value="#ffffff"></div>
+                        <label>Dirección 2</label><input type="number" id="dir2X" title="Pos X" value="183"><input type="number" id="dir2Y" title="Pos Y" value="734"><input type="number" id="dir2Size" title="Tamaño" value="16"><input type="number" id="dir2W" title="Ancho Max" value="770"><input type="color" id="dir2C" title="Color" value="#000000"><div style="display:flex;gap:2px;"><input type="number" id="dir2StrokeW" value="0" style="width:36px;" title="Grosor Borde"><input type="color" id="dir2StrokeC" value="#ffffff"></div>
+                    </div>
+                </section>
+
+                <section class="control-group">
+                    <h2>3. Días y Cuadrícula</h2>
+                    <p class="help-text">Selecciona el rango de fechas para generar el calendario automáticamente.</p>
+
+                    <div class="setting-row triple-input">
+                        <label>Rango:</label>
+                        <input type="date" id="fechaInicio" class="short-select" style="width:130px;" title="Inicio">
+                        <span style="color:var(--text-muted); margin:0 5px;">al</span>
+                        <input type="date" id="fechaFin" class="short-select" style="width:130px;" title="Fin">
+                    </div>
+
+                    <div class="setting-row align-center" style="margin-top: 10px;">
+                        <label>
+                            <input type="checkbox" id="drawNumbers" checked style="margin-right: 5px;">
+                            Auto-dibujar los números de días en la cuadrícula
+                        </label>
+                    </div>
+
+                    <div class="setting-row">
+                        <label>Inicio (1er Cuadro) X, Y:</label>
+                        <input type="number" id="gridX" value="327">
+                        <input type="number" id="gridY" value="290">
+                    </div>
+                    <div class="setting-row">
+                        <label>Distancia Celdas (Ancho/Alto):</label>
+                        <input type="number" id="cellW" value="89">
+                        <input type="number" id="cellH" value="76">
+                    </div>
+                    <div class="setting-row">
+                        <label>Tamaño Ícono (px):</label>
+                        <input type="number" id="iconSize" value="35">
+                    </div>
+                    <div class="setting-row">
+                        <label>Color Cuadrícula:</label>
+                        <input type="color" id="gridColor" value="#0040A3">
+                    </div>
+                    <div class="setting-row">
+                        <label>T. Texto Actividad Size, Color y Borde:</label>
+                        <input type="number" id="gridTextSize" value="13" style="width: 40px;">
+                        <input type="color" id="gridTextColor" value="#FF0000">
+                        <div style="display:flex;gap:2px;"><input type="number" id="gridTextStrokeW" value="0" style="width:36px;" title="Grosor Borde"><input type="color" id="gridTextStrokeC" value="#ffffff"></div>
+                    </div>
+                    <div class="setting-row">
+                        <label>Color Feriado:</label>
+                        <input type="color" id="feriadoColor" value="#FF0000">
+                    </div>
+                </section>
+
+                <button id="generateBtn" class="primary-btn" disabled>Generar Todos los Cronogramas</button>
+            </aside>
+
+            <section class="preview-panel">
+                <div class="preview-header">
+                    <h2>Vista Previa (Primer Curso)</h2>
+                </div>
+                <div class="canvas-container" id="canvasContainer">
+                    <p class="placeholder-text">Sube tus archivos para ver la vista previa en vivo</p>
+                    <canvas id="previewCanvas"></canvas>
+                </div>
+            </section>
+        </main>
+
+        <section class="results-panel" id="resultsPanel" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h2 style="margin-bottom: 0;">Cronogramas Generados</h2>
+                <button id="downloadAllBtn" class="primary-btn" style="width: auto;">Descargar Todos (ZIP)</button>
+            </div>
+            <div class="gallery" id="gallery"></div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
