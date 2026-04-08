@@ -191,7 +191,7 @@ function groupDataByCourse() {
 
 function wrapText(ctx, text, x, y, maxWidth, lineHeight, strokeProps = null) {
     if (!text) return { w: 0, h: 0 };
-    const words = String(text).split(' ');
+    const paragraphs = String(text).split('\n');
     let line = '';
     let startY = y;
     let actualMaxWidth = 0;
@@ -208,19 +208,24 @@ function wrapText(ctx, text, x, y, maxWidth, lineHeight, strokeProps = null) {
         actualMaxWidth = Math.max(actualMaxWidth, ctx.measureText(textStr).width);
     };
 
-    for(let n = 0; n < words.length; n++) {
-        const testLine = line + words[n] + ' ';
-        const metrics = ctx.measureText(testLine);
-        const testWidth = metrics.width;
-        if (testWidth > maxWidth && n > 0) {
-            drawLine(line, x, y);
-            line = words[n] + ' ';
-            y += lineHeight;
-        } else {
-            line = testLine;
+    paragraphs.forEach((paragraph, pIdx) => {
+        const words = paragraph.split(' ');
+        for(let n = 0; n < words.length; n++) {
+            const testLine = line + words[n] + ' ';
+            const metrics = ctx.measureText(testLine);
+            const testWidth = metrics.width;
+            if (testWidth > maxWidth && n > 0) {
+                drawLine(line, x, y);
+                line = words[n] + ' ';
+                y += lineHeight;
+            } else {
+                line = testLine;
+            }
         }
-    }
-    drawLine(line, x, y);
+        drawLine(line, x, y);
+        line = '';
+        if (pIdx < paragraphs.length - 1) y += lineHeight;
+    });
     return { w: actualMaxWidth, h: (y - startY) + lineHeight };
 }
 
@@ -359,6 +364,8 @@ function drawCourseOnCanvas(canvasToDraw, ctxToDraw, course) {
     const feriadoColor = feriadoColorEl ? feriadoColorEl.value : '#ff0000';
     const gridTextSizeEl = document.getElementById('gridTextSize');
     const gridTextSize = gridTextSizeEl ? parseInt(gridTextSizeEl.value) : 20;
+    const gridNumberSizeEl = document.getElementById('gridNumberSize');
+    const gridNumberSize = gridNumberSizeEl ? parseInt(gridNumberSizeEl.value) : Math.floor(cellH/3.5);
     
     const fInicioStr = document.getElementById('fechaInicio').value;
     const fFinStr = document.getElementById('fechaFin').value;
@@ -388,7 +395,7 @@ function drawCourseOnCanvas(canvasToDraw, ctxToDraw, course) {
         
         if (drawNumbers) {
             ctxToDraw.fillStyle = gridColor;
-            ctxToDraw.font = `bold ${Math.floor(cellH/3.5)}px Inter, sans-serif`;
+            ctxToDraw.font = `bold ${gridNumberSize}px Inter, sans-serif`;
             if (gridStrokeProps.enabled) {
                 ctxToDraw.lineJoin = 'round';
                 ctxToDraw.miterLimit = 2;
@@ -417,6 +424,7 @@ function drawCourseOnCanvas(canvasToDraw, ctxToDraw, course) {
                 textYoffsetMultiplier = -0.5;
             } else if (actStr.includes('exam.parcial') || actStr.includes('exam.final')) {
                 iconToDraw = loadedIcons['examen'];
+                actOriginal = actStr.includes('parcial') ? "EXAMEN\nPARCIAL" : "EXAMEN\nFINAL";
             } else if (actStr.includes('zoom')) {
                 iconToDraw = loadedIcons['zoom'];
                 drawText = false;
@@ -424,11 +432,10 @@ function drawCourseOnCanvas(canvasToDraw, ctxToDraw, course) {
                 iconToDraw = loadedIcons['gps'];
             }
             
-            let posY = cellTop + (cellH/2) - (iconSize/2);
-            posY += 10; 
+            let posY = cellTop + 12; 
+            let posX = cellLeft + 33; 
             
             if (iconToDraw) {
-                const posX = cellLeft + (cellW/2) - (iconSize/2);
                 ctxToDraw.drawImage(iconToDraw, posX, posY, iconSize, iconSize);
             }
             
@@ -436,7 +443,7 @@ function drawCourseOnCanvas(canvasToDraw, ctxToDraw, course) {
                 ctxToDraw.font = `bold ${gridTextSize}px Inter, sans-serif`;
                 ctxToDraw.textAlign = 'center';
                 ctxToDraw.fillStyle = currentTextColor;
-                let textPosY = iconToDraw ? posY + iconSize + Math.floor(iconSize * textYoffsetMultiplier) : cellTop + (cellH/2);
+                let textPosY = iconToDraw ? posY + iconSize + 2 : cellTop + (cellH/2);
                 wrapText(ctxToDraw, actOriginal, cellLeft + (cellW/2), textPosY, cellW - 10, Math.floor(gridTextSize * 1.2), gridStrokeProps);
                 ctxToDraw.textAlign = 'left'; 
             }
@@ -677,4 +684,3 @@ previewCanvas.addEventListener('mouseleave', () => {
     isDraggingPos = false;
     isDraggingWidth = false;
 });
-
