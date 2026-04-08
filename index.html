@@ -25,7 +25,8 @@
             <aside class="controls-panel">
                 <section class="control-group">
                     <h2>1. Archivos</h2>
-                    <a href="PLANTILLA/PLANTILLA PARA GENERAR CRONOGRAMA.xlsx" download class="file-btn" style="text-decoration: none; margin-bottom: 1.5rem; color: var(--text-main);">
+                    <a href="PLANTILLA/PLANTILLA PARA GENERAR CRONOGRAMA.xlsx" download class="file-btn"
+                        style="text-decoration: none; margin-bottom: 1.5rem; color: var(--text-main);">
                         <span class="icon" style="margin-right: 8px;">📥</span> Descargar Plantilla Excel
                     </a>
                     <div class="file-upload">
@@ -68,16 +69,76 @@
                         <div class="field-header">Color</div>
                         <div class="field-header">Borde</div>
 
-                        <label>Carrera</label><input type="number" id="carreraX" title="Pos X" value="696"><input type="number" id="carreraY" title="Pos Y" value="47"><input type="number" id="carreraSize" title="Tamaño" value="30"><input type="number" id="carreraW" title="Ancho Max" value="241"><input type="color" id="carreraC" title="Color" value="#ffffff"><div style="display:flex;gap:2px;"><input type="number" id="carreraStrokeW" value="0" style="width:36px;" title="Grosor Borde"><input type="color" id="carreraStrokeC" value="#000000"></div>
-                        <label>Curso</label><input type="number" id="cursoX" title="Pos X" value="156"><input type="number" id="cursoY" title="Pos Y" value="110"><input type="number" id="cursoSize" title="Tamaño" value="26"><input type="number" id="cursoW" title="Ancho Max" value="760"><input type="color" id="cursoC" title="Color" value="#ffffff"><div style="display:flex;gap:2px;"><input type="number" id="cursoStrokeW" value="0" style="width:36px;" title="Grosor Borde"><input type="color" id="cursoStrokeC" value="#000000"></div>
-                        <label>Docente</label><input type="number" id="docenteX" title="Pos X" value="196"><input type="number" id="docenteY" title="Pos Y" value="191"><input type="number" id="docenteSize" title="Tamaño" value="22"><input type="number" id="docenteW" title="Ancho Max" value="500"><input type="color" id="docenteC" title="Color" value="#000000"><div style="display:flex;gap:2px;"><input type="number" id="docenteStrokeW" value="0" style="width:36px;" title="Grosor Borde"><input type="color" id="docenteStrokeC" value="#ffffff"></div>
-                        <label>Aula</label><input type="number" id="aulaX" title="Pos X" value="830"><input type="number" id="aulaY" title="Pos Y" value="199"><input type="number" id="aulaSize" title="Tamaño" value="32"><input type="number" id="aulaW" title="Ancho Max" value="72"><input type="color" id="aulaC" title="Color" value="#ffffff"><div style="display:flex;gap:2px;"><input type="number" id="aulaStrokeW" value="0" style="width:36px;" title="Grosor Borde"><input type="color" id="aulaStrokeC" value="#000000"></div>
-                        <label>Zoom Virt.</label><input type="number" id="zoomVX" title="Pos X" value="32"><input type="number" id="zoomVY" title="Pos Y" value="342"><input type="number" id="zoomVSize" title="Tamaño" value="28"><input type="number" id="zoomVW" title="Ancho Max" value="240"><input type="color" id="zoomVC" title="Color" value="#000000"><div style="display:flex;gap:2px;"><input type="number" id="zoomVStrokeW" value="0" style="width:36px;" title="Grosor Borde"><input type="color" id="zoomVStrokeC" value="#ffffff"></div>
-                        <label>Prác. Pres.</label><input type="number" id="pracPX" title="Pos X" value="28"><input type="number" id="pracPY" title="Pos Y" value="481"><input type="number" id="pracPSize" title="Tamaño" value="25"><input type="number" id="pracPW" title="Ancho Max" value="250"><input type="color" id="pracPC" title="Color" value="#000000"><div style="display:flex;gap:2px;"><input type="number" id="pracPStrokeW" value="0" style="width:36px;" title="Grosor Borde"><input type="color" id="pracPStrokeC" value="#ffffff"></div>
-                        <label>Sede 1</label><input type="number" id="sede1X" title="Pos X" value="529"><input type="number" id="sede1Y" title="Pos Y" value="766"><input type="number" id="sede1Size" title="Tamaño" value="21"><input type="number" id="sede1W" title="Ancho Max" value="333"><input type="color" id="sede1C" title="Color" value="#000000"><div style="display:flex;gap:2px;"><input type="number" id="sede1StrokeW" value="0" style="width:36px;" title="Grosor Borde"><input type="color" id="sede1StrokeC" value="#ffffff"></div>
-                        <label>Sede 2</label><input type="number" id="sede2X" title="Pos X" value="181"><input type="number" id="sede2Y" title="Pos Y" value="701"><input type="number" id="sede2Size" title="Tamaño" value="20"><input type="number" id="sede2W" title="Ancho Max" value="750"><input type="color" id="sede2C" title="Color" value="#000000"><div style="display:flex;gap:2px;"><input type="number" id="sede2StrokeW" value="0" style="width:36px;" title="Grosor Borde"><input type="color" id="sede2StrokeC" value="#ffffff"></div>
-                        <label>Dirección</label><input type="number" id="dir1X" title="Pos X" value="83"><input type="number" id="dir1Y" title="Pos Y" value="811"><input type="number" id="dir1Size" title="Tamaño" value="22"><input type="number" id="dir1W" title="Ancho Max" value="858"><input type="color" id="dir1C" title="Color" value="#000000"><div style="display:flex;gap:2px;"><input type="number" id="dir1StrokeW" value="0" style="width:36px;" title="Grosor Borde"><input type="color" id="dir1StrokeC" value="#ffffff"></div>
-                        <label>Dirección 2</label><input type="number" id="dir2X" title="Pos X" value="183"><input type="number" id="dir2Y" title="Pos Y" value="734"><input type="number" id="dir2Size" title="Tamaño" value="16"><input type="number" id="dir2W" title="Ancho Max" value="770"><input type="color" id="dir2C" title="Color" value="#000000"><div style="display:flex;gap:2px;"><input type="number" id="dir2StrokeW" value="0" style="width:36px;" title="Grosor Borde"><input type="color" id="dir2StrokeC" value="#ffffff"></div>
+                        <label>Carrera</label><input type="number" id="carreraX" title="Pos X" value="696"><input
+                            type="number" id="carreraY" title="Pos Y" value="47"><input type="number" id="carreraSize"
+                            title="Tamaño" value="30"><input type="number" id="carreraW" title="Ancho Max"
+                            value="241"><input type="color" id="carreraC" title="Color" value="#ffffff">
+                        <div style="display:flex;gap:2px;"><input type="number" id="carreraStrokeW" value="0"
+                                style="width:36px;" title="Grosor Borde"><input type="color" id="carreraStrokeC"
+                                value="#000000"></div>
+                        <label>Curso</label><input type="number" id="cursoX" title="Pos X" value="156"><input
+                            type="number" id="cursoY" title="Pos Y" value="110"><input type="number" id="cursoSize"
+                            title="Tamaño" value="26"><input type="number" id="cursoW" title="Ancho Max"
+                            value="760"><input type="color" id="cursoC" title="Color" value="#ffffff">
+                        <div style="display:flex;gap:2px;"><input type="number" id="cursoStrokeW" value="0"
+                                style="width:36px;" title="Grosor Borde"><input type="color" id="cursoStrokeC"
+                                value="#000000"></div>
+                        <label>Docente</label><input type="number" id="docenteX" title="Pos X" value="196"><input
+                            type="number" id="docenteY" title="Pos Y" value="191"><input type="number" id="docenteSize"
+                            title="Tamaño" value="22"><input type="number" id="docenteW" title="Ancho Max"
+                            value="500"><input type="color" id="docenteC" title="Color" value="#000000">
+                        <div style="display:flex;gap:2px;"><input type="number" id="docenteStrokeW" value="8"
+                                style="width:36px;" title="Grosor Borde"><input type="color" id="docenteStrokeC"
+                                value="#ffffff"></div>
+                        <label>Aula</label><input type="number" id="aulaX" title="Pos X" value="829"><input
+                            type="number" id="aulaY" title="Pos Y" value="193"><input type="number" id="aulaSize"
+                            title="Tamaño" value="30"><input type="number" id="aulaW" title="Ancho Max"
+                            value="72"><input type="color" id="aulaC" title="Color" value="#ffffff">
+                        <div style="display:flex;gap:2px;"><input type="number" id="aulaStrokeW" value="0"
+                                style="width:36px;" title="Grosor Borde"><input type="color" id="aulaStrokeC"
+                                value="#000000"></div>
+                        <label>Zoom Virt.</label><input type="number" id="zoomVX" title="Pos X" value="32"><input
+                            type="number" id="zoomVY" title="Pos Y" value="342"><input type="number" id="zoomVSize"
+                            title="Tamaño" value="28"><input type="number" id="zoomVW" title="Ancho Max"
+                            value="240"><input type="color" id="zoomVC" title="Color" value="#000000">
+                        <div style="display:flex;gap:2px;"><input type="number" id="zoomVStrokeW" value="0"
+                                style="width:36px;" title="Grosor Borde"><input type="color" id="zoomVStrokeC"
+                                value="#ffffff"></div>
+                        <label>Prác. Pres.</label><input type="number" id="pracPX" title="Pos X" value="28"><input
+                            type="number" id="pracPY" title="Pos Y" value="481"><input type="number" id="pracPSize"
+                            title="Tamaño" value="25"><input type="number" id="pracPW" title="Ancho Max"
+                            value="250"><input type="color" id="pracPC" title="Color" value="#000000">
+                        <div style="display:flex;gap:2px;"><input type="number" id="pracPStrokeW" value="0"
+                                style="width:36px;" title="Grosor Borde"><input type="color" id="pracPStrokeC"
+                                value="#ffffff"></div>
+                        <label>Sede 1</label><input type="number" id="sede1X" title="Pos X" value="529"><input
+                            type="number" id="sede1Y" title="Pos Y" value="766"><input type="number" id="sede1Size"
+                            title="Tamaño" value="21"><input type="number" id="sede1W" title="Ancho Max"
+                            value="333"><input type="color" id="sede1C" title="Color" value="#000000">
+                        <div style="display:flex;gap:2px;"><input type="number" id="sede1StrokeW" value="0"
+                                style="width:36px;" title="Grosor Borde"><input type="color" id="sede1StrokeC"
+                                value="#ffffff"></div>
+                        <label>Sede 2</label><input type="number" id="sede2X" title="Pos X" value="181"><input
+                            type="number" id="sede2Y" title="Pos Y" value="701"><input type="number" id="sede2Size"
+                            title="Tamaño" value="20"><input type="number" id="sede2W" title="Ancho Max"
+                            value="750"><input type="color" id="sede2C" title="Color" value="#000000">
+                        <div style="display:flex;gap:2px;"><input type="number" id="sede2StrokeW" value="0"
+                                style="width:36px;" title="Grosor Borde"><input type="color" id="sede2StrokeC"
+                                value="#ffffff"></div>
+                        <label>Dirección</label><input type="number" id="dir1X" title="Pos X" value="83"><input
+                            type="number" id="dir1Y" title="Pos Y" value="811"><input type="number" id="dir1Size"
+                            title="Tamaño" value="22"><input type="number" id="dir1W" title="Ancho Max"
+                            value="858"><input type="color" id="dir1C" title="Color" value="#000000">
+                        <div style="display:flex;gap:2px;"><input type="number" id="dir1StrokeW" value="0"
+                                style="width:36px;" title="Grosor Borde"><input type="color" id="dir1StrokeC"
+                                value="#ffffff"></div>
+                        <label>Dirección 2</label><input type="number" id="dir2X" title="Pos X" value="183"><input
+                            type="number" id="dir2Y" title="Pos Y" value="734"><input type="number" id="dir2Size"
+                            title="Tamaño" value="16"><input type="number" id="dir2W" title="Ancho Max"
+                            value="770"><input type="color" id="dir2C" title="Color" value="#000000">
+                        <div style="display:flex;gap:2px;"><input type="number" id="dir2StrokeW" value="0"
+                                style="width:36px;" title="Grosor Borde"><input type="color" id="dir2StrokeC"
+                                value="#ffffff"></div>
                     </div>
                 </section>
 
@@ -116,12 +177,16 @@
                     <div class="setting-row">
                         <label>Color Cuadrícula:</label>
                         <input type="color" id="gridColor" value="#0040A3">
+                        <label for="gridNumberSize">Tamaño Números Día:</label>
+                        <input type="number" id="gridNumberSize" value="19" min="10" max="100" class="control-input">
                     </div>
                     <div class="setting-row">
-                        <label>T. Texto Actividad Size, Color y Borde:</label>
-                        <input type="number" id="gridTextSize" value="13" style="width: 40px;">
+                        <label>T. Texto Actividad Size, </BR> Color y Borde:</label>
+                        <input type="number" id="gridTextSize" value="13" style="width: 50px;">
                         <input type="color" id="gridTextColor" value="#FF0000">
-                        <div style="display:flex;gap:2px;"><input type="number" id="gridTextStrokeW" value="0" style="width:36px;" title="Grosor Borde"><input type="color" id="gridTextStrokeC" value="#ffffff"></div>
+                        <div style="display:flex;gap:2px;" ><input type="number" id="gridTextStrokeW" value="0"
+                                style="width:50px;" title="Grosor Borde"><input type="color" id="gridTextStrokeC"
+                                value="#ffffff"></div>
                     </div>
                     <div class="setting-row">
                         <label>Color Feriado:</label>
