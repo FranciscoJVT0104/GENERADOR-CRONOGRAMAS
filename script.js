@@ -545,7 +545,7 @@ document.getElementById('downloadAllBtn').addEventListener('click', () => {
     
     generatedImages.forEach(img => {
         const base64Data = img.dataUrl.replace(/^data:image\/(png|jpeg);base64,/, "");
-        zip.file(`${img.name.replace(/[/\\?%*:|"<>]/g, '-')}.png`, base64Data, {base64: true});
+        zip.file(`${img.name.replace(/[/\\?%*:|"<>]/g, '-')}.webp`, base64Data, {base64: true});
     });
     
     zip.generateAsync({type:"blob"}).then(function(content) {
